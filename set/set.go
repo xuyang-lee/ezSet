@@ -6,6 +6,37 @@ package set
 // This source code is licensed under the BSD-style license found in the
 // LICENSE file in the root directory of this source tree.
 
+// Attention please!
+// T is a type that can be compared.
+// Including int, float, string and structures which cannot contain incomparable field types(such as slice, map, chan).
+// If the structure contains pointers, note that if the pointer fields in the two structures are different,
+// then these two structures are different elements, even the values of the two pointers point are the same
+// e.g.
+// 	type A struct {
+// 		age  *int
+//	}
+//  a,b := 1,1
+//  set1 := utils.NewSetWithSlice(A{age: &a})
+//	set2 := utils.NewSetWithSlice(A{age: &b})
+//  fmt.Println(set1.IsEqual(set2))
+// ============
+//  false
+// ============
+
+// 请注意！ T是可比较类型，包括int，float，string 和 不包括不可比较字段的结构体（结构体中没有slice、 map、 chan）。
+// 如果结构体包含指针，要注意只要结构体中的指针不同，不论这两个指针所指向的值是不是一样的，这两个结构体就认为是不同的元素。
+// 例子：
+// 	type A struct {
+// 		age  *int
+//	}
+//  a,b := 1,1
+//  set1 := utils.NewSetWithSlice(A{age: &a})
+//	set2 := utils.NewSetWithSlice(A{age: &b})
+//  fmt.Println(set1.IsEqual(set2))
+// ============
+//  false
+// ============
+
 type empty struct{}
 
 type Set[T comparable] struct {
