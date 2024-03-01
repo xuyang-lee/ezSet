@@ -60,7 +60,7 @@ func NewSet[T comparable]() Set[T] {
 // NewSetWithSlice create a new set,
 // the type of the set will be the same as the type of l,
 // and new set will be init with l
-func NewSetWithSlice[T comparable](l ...T) Set[T] {
+func NewSetWithSlice[T comparable](l []T) Set[T] {
 	s := newSet[T]()
 
 	for _, v := range l {
