@@ -70,6 +70,17 @@ func NewSetWithSlice[T comparable](l []T) Set[T] {
 	return s
 }
 
+// Distinct delete duplicate data from the list, but do not guarantee the order of results
+func Distinct[T comparable](l []T) []T {
+	s := newSet[T]()
+
+	for _, v := range l {
+		s.setMap[v] = _EMPTY
+	}
+
+	return s.list()
+}
+
 // Len get the size of set
 func (s *Set[T]) Len() int {
 	return s.len()
@@ -105,11 +116,7 @@ func (s *Set[T]) Clone() Set[T] {
 
 // List get all elements as a slice
 func (s *Set[T]) List() []T {
-	var l []T
-	for k := range s.setMap {
-		l = append(l, k)
-	}
-	return l
+	return s.list()
 }
 
 // Contains  whether e belongs to s
@@ -216,6 +223,14 @@ func (s *Set[T]) clone() Set[T] {
 
 func (s *Set[T]) len() int {
 	return len(s.setMap)
+}
+
+func (s *Set[T]) list() []T {
+	var l []T
+	for k := range s.setMap {
+		l = append(l, k)
+	}
+	return l
 }
 
 func (s *Set[T]) isSubSetOf(d Set[T]) bool {
