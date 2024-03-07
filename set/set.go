@@ -226,7 +226,7 @@ func (s *Set[T]) len() int {
 }
 
 func (s *Set[T]) list() []T {
-	var l []T
+	var l = make([]T, 0)
 	for k := range s.setMap {
 		l = append(l, k)
 	}
