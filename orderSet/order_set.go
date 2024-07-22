@@ -204,7 +204,9 @@ func (s *OrderSet[T]) len() int {
 }
 
 func (s *OrderSet[T]) list() []T {
-	return s.keys
+	keyCopy := make([]T, len(s.keys))
+	copy(keyCopy, s.keys)
+	return keyCopy
 }
 
 func (s *OrderSet[T]) isSubSetOf(d *OrderSet[T]) bool {
