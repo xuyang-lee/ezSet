@@ -26,3 +26,4 @@ go.work
 config.yaml
 .idea
 /log
+*_test.go

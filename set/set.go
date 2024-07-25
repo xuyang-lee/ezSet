@@ -69,6 +69,7 @@ func NewSetWithSlice[T comparable](l []T) *Set[T] {
 }
 
 // Distinct delete duplicate data from the list, but do not guarantee the order of results
+// Deprecated: use [Distinct] of [github.com/xuyang-lee/ezList] instead
 func Distinct[T comparable](l []T) []T {
 	s := newSet[T]()
 
