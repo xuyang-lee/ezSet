@@ -108,10 +108,10 @@ func (s *SyncSet[T]) IsEqual(d *SyncSet[T]) bool {
 	return s.isSubSetOf(d) && s.isSuperSetOf(d)
 }
 
-// Union 交集：return set = s * d
-func (s *SyncSet[T]) Union(d *SyncSet[T]) *SyncSet[T] {
+// Intersect 交集：return set = s * d
+func (s *SyncSet[T]) Intersect(d *SyncSet[T]) *SyncSet[T] {
 	//创建交集
-	union := newSet[T]()
+	intersect := newSet[T]()
 
 	less, great := order(s, d)
 	less.m.RLock()
@@ -123,24 +123,24 @@ func (s *SyncSet[T]) Union(d *SyncSet[T]) *SyncSet[T] {
 	for k := range d.setMap {
 		//若s中存在，则加入集合
 		if s.contains(k) {
-			union.add(k)
+			intersect.add(k)
 		}
 	}
 
-	return union
+	return intersect
 
 }
 
-// Intersect 并集：return set = s + d
-func (s *SyncSet[T]) Intersect(d *SyncSet[T]) *SyncSet[T] {
-	intersect := s.clone()
+// Union 并集：return set = s + d
+func (s *SyncSet[T]) Union(d *SyncSet[T]) *SyncSet[T] {
+	union := s.clone()
 	d.m.RLock()
 	defer d.m.RUnlock()
 
 	for k := range d.setMap {
-		intersect.add(k)
+		union.add(k)
 	}
-	return intersect
+	return union
 }
 
 // Difference 差集：return set = s - d

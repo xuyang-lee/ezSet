@@ -138,29 +138,29 @@ func (s *Set[T]) IsEqual(d *Set[T]) bool {
 	return s.isSubSetOf(d) && s.isSuperSetOf(d)
 }
 
-// Union 交集：return set = s * d
-func (s *Set[T]) Union(d *Set[T]) *Set[T] {
+// Intersect 交集：return set = s * d
+func (s *Set[T]) Intersect(d *Set[T]) *Set[T] {
 	//创建交集
-	union := newSet[T]()
+	intersect := newSet[T]()
 	//遍历d中元素
 	for k := range d.setMap {
 		//若s中存在，则加入集合
 		if s.contains(k) {
-			union.add(k)
+			intersect.add(k)
 		}
 	}
 
-	return union
+	return intersect
 
 }
 
-// Intersect 并集：return set = s + d
-func (s *Set[T]) Intersect(d *Set[T]) *Set[T] {
-	intersect := s.clone()
+// Union 并集：return set = s + d
+func (s *Set[T]) Union(d *Set[T]) *Set[T] {
+	union := s.clone()
 	for k := range d.setMap {
-		intersect.add(k)
+		union.add(k)
 	}
-	return intersect
+	return union
 }
 
 // Difference 差集：return set = s - d
@@ -201,7 +201,6 @@ func (s *Set[T]) add(e T) {
 }
 
 func (s *Set[T]) remove(e T) {
-
 	if _, ok := s.setMap[e]; ok {
 		delete(s.setMap, e)
 	}
