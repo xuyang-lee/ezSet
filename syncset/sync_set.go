@@ -1,4 +1,4 @@
-package syncSet
+package syncset
 
 import (
 	"github.com/xuyang-lee/ezSet/internal/consts"

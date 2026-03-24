@@ -1,4 +1,4 @@
-package orderSet
+package orderset
 
 import (
 	"github.com/xuyang-lee/ezSet/internal/consts"
